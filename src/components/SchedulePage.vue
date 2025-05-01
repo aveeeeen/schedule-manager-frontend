@@ -21,6 +21,9 @@ onMounted(() => {
 })
 
 async function generateSchedule() {
+  const backendUrl = "https://thinkable-reminiscent-woolen.glitch.me"
+  // const backendUrl = "http://localhost:3000/"
+
   if(!todostore.todos.length) {
     toast.error('タスクがありません', {
       description: 'タスクを追加してください',
@@ -30,7 +33,7 @@ async function generateSchedule() {
   const todos = { reqTodo : todostore.todos }
   isLoading.value = true
   try {
-    const response = await axios.post('http://localhost:3000/api/schedule-prompt', JSON.stringify(todos), {
+    const response = await axios.post( `${backendUrl}/api/schedule-prompt`, JSON.stringify(todos), {
       headers: {
         'Content-Type': 'application/json',
       },
