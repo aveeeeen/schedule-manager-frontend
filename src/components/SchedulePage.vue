@@ -4,6 +4,8 @@ import Button from './ui/button/Button.vue';
 import { useTodoStore } from '@/stores/todos';
 import { ref, onMounted } from 'vue';
 import ScheduleTable from './ScheduleTable.vue';
+import { toast } from 'vue-sonner'
+import { Toaster } from 'vue-sonner';
 
 const todostore = useTodoStore()
 const schedule = ref<any>(null)
@@ -14,11 +16,17 @@ onMounted(() => {
   if (storedSchedule) {
     schedule.value = JSON.parse(storedSchedule)
   } else {
-    schedule.value = []
+    schedule.value = null
   }
 })
 
 async function generateSchedule() {
+  if(!todostore.todos.length) {
+    toast.error('タスクがありません', {
+      description: 'タスクを追加してください',
+    })
+    return
+  }
   const todos = { reqTodo : todostore.todos }
   isLoading.value = true
   try {
@@ -30,6 +38,9 @@ async function generateSchedule() {
     schedule.value = response.data.schedule
     localStorage.setItem('schedule', JSON.stringify(schedule.value))
   } catch (error) {
+    toast.error('スケジュールの取得に失敗しました', {
+      description: `${error}`,
+    })
     console.error('Error generating schedule:', error)
   } finally {
     isLoading.value = false
@@ -48,4 +59,5 @@ async function generateSchedule() {
       <ScheduleTable :schedule="schedule" v-if="schedule" />
     </div>
   </div>
+  <Toaster position="top-center" />
 </template>
