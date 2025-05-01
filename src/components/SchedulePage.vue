@@ -21,7 +21,7 @@ onMounted(() => {
 })
 
 async function generateSchedule() {
-  const backendUrl = "https://thinkable-reminiscent-woolen.glitch.me"
+  const backendUrl = "https://schedule-manager-backend-no78.onrender.com"
   // const backendUrl = "http://localhost:3000/"
 
   if(!todostore.todos.length) {
