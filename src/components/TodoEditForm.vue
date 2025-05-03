@@ -23,13 +23,13 @@ onMounted(() => {
   if (props.todo) {
     task.value = props.todo.task
     priority.value = props.todo.priority
-    progress.value = props.todo.progress
+    progress.value = props.todo.progress.toString()
   }
 })
 
 const task = ref<string>('')
 const priority = ref<'low' | 'medium' | 'high' | 'unselected'>('unselected')
-const progress = ref<number>(0)
+const progress = ref<string>('0')
 
 const emit = defineEmits(['onedit', 'oncancel'])
 
@@ -80,9 +80,12 @@ function priorityToColor(priority: 'low' | 'medium' | 'high' | 'unselected') {
               <SelectValue placeholder="優先度" :class="priorityToColor(priority)"/>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="low" class=" text-green-500 focus:text-green-400">低</SelectItem>
-              <SelectItem value="medium" class=" text-yellow-500 focus:text-yellow-400">中</SelectItem>
-              <SelectItem value="high" class=" text-red-500 focus:text-red-400">高</SelectItem>
+              <SelectGroup>
+                <SelectLabel class="text-gray-500">優先度</SelectLabel>
+                <SelectItem value="low" class=" text-green-500 focus:text-green-400">低</SelectItem>
+                <SelectItem value="medium" class=" text-yellow-500 focus:text-yellow-400">中</SelectItem>
+                <SelectItem value="high" class=" text-red-500 focus:text-red-400">高</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
           <Select v-model="progress"
@@ -91,12 +94,15 @@ function priorityToColor(priority: 'low' | 'medium' | 'high' | 'unselected') {
               <SelectValue placeholder="進捗度" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0">0%</SelectItem>
-              <SelectItem value="20">20%</SelectItem>
-              <SelectItem value="40">40%</SelectItem>
-              <SelectItem value="60">60%</SelectItem>
-              <SelectItem value="80">80%</SelectItem>
-              <SelectItem value="100">100%</SelectItem>
+              <SelectGroup>
+                <SelectLabel class="text-gray-500">進捗度</SelectLabel>
+                <SelectItem value="0">0%</SelectItem>
+                <SelectItem value="20">20%</SelectItem>
+                <SelectItem value="40">40%</SelectItem>
+                <SelectItem value="60">60%</SelectItem>
+                <SelectItem value="80">80%</SelectItem>
+                <SelectItem value="100">100%</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>

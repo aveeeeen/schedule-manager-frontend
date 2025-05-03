@@ -63,28 +63,34 @@ function addTask(){
           <Textarea required v-model="task" class="bg-white" placeholder="タスクを記入してください。"></Textarea>
         </div>
         <div class="flex h-5 items-center space-x-4">
-          <Select required v-model="priority">
+          <Select v-model="priority" required>
             <SelectTrigger class="w-[100px] bg-white">
               <SelectValue placeholder="優先度" :class="priorityToColor(priority)"/>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="low" class=" text-green-500 focus:text-green-400">低</SelectItem>
-              <SelectItem value="medium" class=" text-yellow-500 focus:text-yellow-400">中</SelectItem>
-              <SelectItem value="high" class=" text-red-500 focus:text-red
-              -400">高</SelectItem>
+              <SelectGroup>
+                <SelectLabel class="text-gray-500">優先度</SelectLabel>
+                <SelectItem value="low" class=" text-green-500 focus:text-green-400">低</SelectItem>
+                <SelectItem value="medium" class=" text-yellow-500 focus:text-yellow-400">中</SelectItem>
+                <SelectItem value="high" class=" text-red-500 focus:text-red-400">高</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
-          <Select required v-model="progress">
+          <Select v-model="progress"
+           required>
             <SelectTrigger class="w-[100px] bg-white">
               <SelectValue placeholder="進捗度" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="0">0%</SelectItem>
-              <SelectItem value="20">20%</SelectItem>
-              <SelectItem value="40">40%</SelectItem>
-              <SelectItem value="60">60%</SelectItem>
-              <SelectItem value="80">80%</SelectItem>
-              <SelectItem value="100">100%</SelectItem>
+              <SelectGroup>
+                <SelectLabel class="text-gray-500">進捗度</SelectLabel>
+                <SelectItem value="0">0%</SelectItem>
+                <SelectItem value="20">20%</SelectItem>
+                <SelectItem value="40">40%</SelectItem>
+                <SelectItem value="60">60%</SelectItem>
+                <SelectItem value="80">80%</SelectItem>
+                <SelectItem value="100">100%</SelectItem>
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>

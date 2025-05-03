@@ -6,6 +6,7 @@ import { ref, onMounted } from 'vue';
 import ScheduleTable from './ScheduleTable.vue';
 import { toast } from 'vue-sonner'
 import { Toaster } from 'vue-sonner';
+import ScheduleSkelton from './ScheduleSkelton.vue';
 
 const todostore = useTodoStore()
 const schedule = ref<any>(null)
@@ -59,7 +60,8 @@ async function generateSchedule() {
       <div v-else class="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
     </div>
     <div class="flex flex-col gap-4 w-full h-full overflow-y-auto">
-      <ScheduleTable :schedule="schedule" v-if="schedule" />
+      <ScheduleSkelton v-if="isLoading"></ScheduleSkelton>
+      <ScheduleTable :schedule="schedule" v-if="schedule && !isLoading" />
     </div>
   </div>
   <Toaster position="top-center" />
